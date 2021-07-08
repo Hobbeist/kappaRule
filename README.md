@@ -2,7 +2,7 @@
 
 # Installation
 
-```{r}
+```r
 devtools::install_github("Hobbeist/ruleFit")
 ```
 
@@ -12,7 +12,7 @@ As an example, we use the `PimaIndianDiabetes` dataset from the `mlbench` packag
 
 ## Get the `mlbench` package
 
-```{r}
+```r
 install.packages("mlbench")
 library(mlbench)
 
@@ -21,7 +21,7 @@ data("PimaIndianDiabetes")
 
 ## Prepare the data
 
-```{r}
+```r
 library(rsample)
 
 # Re-coding the outcome variable
@@ -39,7 +39,7 @@ test  <- testing(split)
 
 ## Run the `ruleFit` model
 
-```{r}
+```r
 rf_results <- 
   ruleFit(data = train,
           y = "diabetes",
@@ -55,7 +55,7 @@ rf_results <-
 
 ## `ruleFit` results object
 
-```{r}
+```r
 
 
 ```
