@@ -2,7 +2,7 @@
 % Please edit documentation in R/utilities.R
 \name{simulate_data}
 \alias{simulate_data}
-\title{Simulate data to test the rulefit function}
+\title{Simulate data to test the ruleFit function}
 \usage{
 simulate_data(n = 1000, p = 100, seed = 777)
 }
@@ -17,5 +17,5 @@ simulate_data(n = 1000, p = 100, seed = 777)
 a simulated data set with a binary outcome variable and 35 predictors that are associated with the outcome
 }
 \description{
-Simulate data to test the rulefit function
+Simulate data to test the ruleFit function
 }

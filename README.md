@@ -56,11 +56,65 @@ rf_results <-
 ## `ruleFit` results object
 
 ```r
+=========================================
 
+
+  _____       _      ______ _ _
+ |  __ \     | |    |  ____(_) |
+ | |__) |   _| | ___| |__   _| |_
+ |  _  / | | | |/ _ \  __| | | __|
+ | | \ \ |_| | |  __/ |    | | |_
+ |_|  \_\__,_|_|\___|_|    |_|\__|
+
+
+
+========== Final RuleFit model ==========
+
+  Number of rules : 5 
+  Top Rule : rule_1240 
+  Prediction finished after : 5.650231 mins 
+
+=========================================
+
+Top predictors with performance:
+
+    features        coefs                                         rules
+1  rule_1240  0.571078463  pedigree >= 0.211 & age < 59.5 & age >= 24.5
+2  rule_9001  0.509554892 mass >= 26.7 & age >= 28.5 & pedigree < 1.178
+3   pedigree  0.359358593                                          <NA>
+4  rule_2543  0.266639832   insulin < 210 & age >= 26.5 & mass >= 26.35
+5  rule_9354  0.263752536    age < 59.5 & pregnant < 13.5 & age >= 28.5
+6  rule_1825  0.123884775      age >= 32.5 & age >= 29.5 & mass >= 26.3
+7       mass  0.051551334                                          <NA>
+8    glucose  0.031630574                                          <NA>
+9   pressure -0.009338871                                          <NA>
+10  pregnant  0.008273054                                          <NA>
+
+=========================================
+
+Model call: 
+kappaRule(data = train, y = "diabetes", ntree = 2000, max.depth = 3, 
+    rule.filter = 10, rule.extract.cores = 64, kappa.cores = 64)
 
 ```
 
 
+## Predict
+
+```r
+predict.ruleFit(test_data = test, 
+                model = rf_results,
+                predict = "class")
+```
+
+Results:
+
+```r
+[1] 0 1 0 0 0 0 1 1 1 0 0 1 0 0 0 0 0 0 0 0 1 0 1 0 0 0 1 0 0 1 0 0 0 0 0 0 0 1 0 0 1 0 1 1 0 1 0 0 1 1 1 1 1 0 0 1 0 1 0 0 0 0 0 0 0 1 1 1 0
+ [70] 1 1 1 0 1 0 0 0 1 0 0 1 0 0 0 0 0 0 1 0 1 1 0 0 1 1 0 1 0 0 0 0 0 0 0 0 0 0 0 0 1 0 1 1 1 0 0 0 0 0 0 1 0 0 0 0 1 0 1 0 1 0 0 1 0 0 0 1 1
+[139] 0 1 1 0 0 0 0 0 0 1 1 0 0 0 0 0 0 0 1 0 0 0 1 0 1 0 0 1 1 0 1 1 1 0 0 1 1 0 0 0 0 0 1 1 0 0 0 1 1 1 0 0 0 0
+Levels: 0 1
+```
 # LICENSE
 The contents of this repository are distributed under the MIT license. See below for details:
 

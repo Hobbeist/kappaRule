@@ -46,12 +46,14 @@ print.ruleFit <- function(x){
 
 #' Predict function for varppRule
 #'
-#' @param test_data
-#' @param model
-#' @param predict
+#' @param test_data a test data set
+#' @param model the stored kappaRule model
+#' @param predict if the prediction should be probability or class
+#'
+#' @import dplyr
 #'
 #' @export
-predict.ruleFit<- function(test_data,
+predict.ruleFit <- function(test_data,
                            model,
                            predict=c("probability", "class")){
 
@@ -61,10 +63,10 @@ predict.ruleFit<- function(test_data,
   for(i in names(rule_desc)) {
 
     test_2 <- cbind(test_2, (test %>%
-                               mutate(!!names(rule_desc[i]) := ifelse(eval(parse(text=as.character(rule_desc[i]))),
+                               dplyr::mutate(!!names(rule_desc[i]) := ifelse(eval(parse(text=as.character(rule_desc[i]))),
                                                                       model$positive[i],
                                                                       model$alternative[i])) %>%
-                               select(!!names(rule_desc[i])))
+                               dplyr::select(!!names(rule_desc[i])))
     )
 
 

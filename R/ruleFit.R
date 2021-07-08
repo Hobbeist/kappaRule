@@ -20,6 +20,7 @@
 #' @import foreach
 #' @import caret
 #' @import glmnet
+#' @importFrom dplyr select
 #' @import tidyverse
 #' @import magrittr
 #' @importFrom parallel detectCores
@@ -27,15 +28,10 @@
 #' @import lattice
 #' @import ggplot2
 #' @import grid
-#' @import precrec
-#' @import DT
-#' @import rmarkdown
-#' @import knitr
-#' @import pander
 #' @import tidyr
 #' @import tidyselect
 #' @export
-ruleFit <- function(data,
+kappaRule <- function(data,
                      y,
                      ntree = 200,
                      max.depth = 3,
@@ -108,8 +104,8 @@ ruleFit <- function(data,
     rules_data <- foreach( i = 1:length(rules)) %dopar% {
       library(tidyverse)
       data %>%
-        mutate(!!rules[i] := ifelse(eval(parse(text=rules[i])), positive[i], alternative[i])) %>%
-        select(!!rules[i])
+        dplyr::mutate(!!rules[i] := ifelse(eval(parse(text=rules[i])), positive[i], alternative[i])) %>%
+        dplyr::select(!!rules[i])
 
     }
     stopCluster(cl)
@@ -215,7 +211,7 @@ ruleFit <- function(data,
 
 
   Y  <- as.factor(data[,y])
-  X  <- Matrix::as.matrix(data %>% select(-{{y}}))
+  X  <- Matrix::as.matrix(data %>% dplyr::select(-{{y}}))
 
 
   modelling_start_time <- Sys.time()
@@ -241,7 +237,7 @@ ruleFit <- function(data,
 
   # Predict on the data
   predictions <- as.factor(predict(model_glmnet,
-                                   Matrix::as.matrix(data %>% select(-{{y}})),
+                                   Matrix::as.matrix(data %>% dplyr::select(-{{y}})),
                                    s="lambda.min",
                                    type="class"))
 
@@ -255,7 +251,8 @@ ruleFit <- function(data,
 
   Results$rules <- rules[as.character(Results$features)]
   Results %>%
-    arrange(desc(abs(coefs)))  %>% filter(!features %in% "(Intercept)") -> varimp
+    dplyr::arrange(desc(abs(coefs)))  %>%
+    dplyr::filter(!features %in% "(Intercept)") -> varimp
 
 
 
