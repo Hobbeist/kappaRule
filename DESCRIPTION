@@ -1,0 +1,43 @@
+Package: ruleFit
+Type: Package
+Title: Implementation of the ruleFit algorithm by Friedman and Popescue
+Version: 0.1.0
+Authors@R: c(person("Sebastian", "Rauschert",
+    email = "Sebastian.Rauschert@telethonkids.org.au", role = c("aut", "cre")))
+Maintainer: Sebastian Rauschert <Sebastian.Rauschert@telethonkids.org.au>
+Description: This model is a fast and parallel implementation of the RuleFit algorithm based on the work by Friedman
+    and Popescu (Friedman JH, Popescu BE. Predictive learning via rule ensembles. The Annals of Applied Statistics. 2008;2(3):916-54.).
+License: GPL-3 + file LICENSE
+Encoding: UTF-8
+LazyData: true
+Depends: R (>= 3.5.0)
+Imports:
+   ranger,
+   glmnet,
+   doMC,
+   doParallel,
+   parallel,
+   foreach,
+   tidyverse,
+   data.table,
+   caret,
+   tidypredict,
+   progress,
+   stringr,
+   dplyr,
+   magrittr,
+   plyr,
+   iterators,
+   lattice,
+   grid,
+   ggplot2,
+   rmarkdown,
+   knitr,
+   plotly,
+   DT,
+   pander,
+   lubridate,
+   pROC,
+   tidyr,
+   tidyselect (>= 1.1.0)
+RoxygenNote: 7.1.1
