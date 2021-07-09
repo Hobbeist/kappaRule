@@ -54,7 +54,7 @@ print.ruleFit <- function(x){
 #' @import glmnet
 #'
 #' @export
-predict_kappaRule <- function(model,
+predict.kappaRule <- function(model,
                             test_data,
                             predict=c("probability", "class")){
 
