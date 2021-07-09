@@ -1,9 +1,39 @@
 # `kappaRule`: A parallel implementation of the RuleFit algorithm by Friedman and Popescue
 
+## Background
+With the field of machine learning and artificial intelligence moving fast and creating a vast amount of great but
+un-interpretable models and solutions, the need for interpret-ability is on the rise.  
+
+The RuleFit algorithm by Friedman and Popescue is an elegant proposal to combine any tree ensemble based model and penalised
+regression models. 
+
+The basic idea is, that tree based models create rules - think the paths along the branches of the tree are "if - else" statements,
+with cut-off values. This conditions can either be met - `TRUE` - or not - `FALSE` - and can hence be re-coded into a range of binary `rule`
+variables.
+
+Those rule variables, together with the original features of the data set, are then fed into a penalised regression model (L1 or L2),
+where the model selects the variables allowing for the best prediction. 
+
+In the end, we are left with a list of interpretable rules.
+
+The number of rules, however, can still be large, which is a hindrance to interpretability. If we are left with 100 rules, what does this actually mean?
+
+## Solution
+With `kappaRule`, we force a pre-selection of rules for the model. The number can be set by the user, but defaults to 10 rules at maximum.
+What does this mean? The performance of every rule gets evaluated against the ground truth, before being added to the penalised regression model.
+
+This forces only the best rules to stay in the model and increases the calculation speed of the penalised regression.
+
+Forcing only a small, highly performant rules to stay in the model, makes the interpretability easier
+
+## Benchmark against `pre` and `xrf` 
+
+Coming soon (what does this mean for performance?)
+
 # Installation
 
 ```r
-devtools::install_github("Hobbeist/ruleFit")
+devtools::install_github("Hobbeist/kappaRule")
 ```
 
 # How to
@@ -15,15 +45,16 @@ As an example, we use the `PimaIndianDiabetes` dataset from the `mlbench` packag
 ```r
 install.packages("mlbench")
 library(mlbench)
-
 data("PimaIndianDiabetes")
+
+library(rsample)
+library(tidyverse)
+library(kappaRule)
 ```
 
 ## Prepare the data
 
 ```r
-library(rsample)
-
 # Re-coding the outcome variable
 diabetes <- PimaIndianDiabetes %>%
          mutate(diabetes = as.factor(ifelse(diabetes %in% "neg", 0, 1)))
