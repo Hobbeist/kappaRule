@@ -87,6 +87,33 @@ predict.ruleFit <- function(test_data,
 
 #====================================================================================================================
 
+#' Function to evaluate the model
+#'
+#' @param test_data test data to evaluate the model on
+#' @param model saved kappaRule model
+
+#' @importFrom broom tidy
+#' @importFrom caret confusionMatrix
+
+kappaRule_metrics <- function(test_data,
+                              model,
+                              measure = NULL){
+
+  results <- broom::tidy(caret::confusionMatrix(table(test$diabetes,
+                                           predict.ruleFit(test, model))))%>%
+    dplyr::select(term, estimate) %>%
+    dplyr::rename(Measure = term) %>%
+    dplyr::filter(!Measure %in% "mcnemar")
+
+
+  return(results)
+
+}
+
+
+
+#====================================================================================================================
+
 #' Function to return all rules ranked by variable importance
 #' @param x an object of class varppRuleFit
 #' @export
