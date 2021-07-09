@@ -54,7 +54,7 @@ print.ruleFit <- function(x){
 #' @import glmnet
 #'
 #' @export
-predict.ruleFit <- function(model,
+predict.kappaRule <- function(model,
                             test_data,
                             predict=c("probability", "class")){
 
@@ -102,14 +102,14 @@ kappaRule_metrics <- function(test_data,
                               measure = NULL){
 
   results_test <- broom::tidy(caret::confusionMatrix(table(test_data[,model$y],
-                                           predict.ruleFit(test_data, model))))%>%
+                                           predict.kappaRule(model = model, test_data = test_data))))%>%
     dplyr::select(term, estimate) %>%
     dplyr::rename(Test_Metrics = estimate) %>%
     dplyr::rename(Measure = term) %>%
     dplyr::filter(!Measure %in% "mcnemar")
 
   results_train <- broom::tidy(caret::confusionMatrix(table(model$RuleData[,model$y],
-                                                            predict(model$RuleFit,
+                                                            glmnet::predict.glmnet(model$RuleFit,
                                                                     Matrix::as.matrix(model$RuleData %>%
                                                                                                       dplyr::select(!!-model$y)),
                                                                     type = "class"))))%>%
