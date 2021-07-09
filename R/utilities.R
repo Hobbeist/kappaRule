@@ -51,7 +51,7 @@ print.ruleFit <- function(x){
 #' @param predict if the prediction should be probability or class
 #'
 #' @import dplyr
-#' @importFrom glmnet predict
+#' @import glmnet
 #'
 #' @export
 predict.ruleFit <- function(model,
@@ -76,7 +76,7 @@ predict.ruleFit <- function(model,
   test_mat <- Matrix::as.matrix(test_2 %>% select(-{{y}}))
 
 
-  predictions <- as.factor(glmnet::predict(rf_results$RuleFit,
+  predictions <- as.factor(glmnet::predict.glmnet(rf_results$RuleFit,
                                    test_mat,
                                    s="lambda.min",
                                    type="class"))
