@@ -127,22 +127,22 @@ kappaRule_metrics(test_data = test,
 Output:
 
 ```r
-# A tibble: 13 x 2
-   Measure              estimate
-   <chr>                   <dbl>
- 1 accuracy                0.766
- 2 kappa                   0.490
- 3 sensitivity             0.802
- 4 specificity             0.697
- 5 pos_pred_value          0.835
- 6 neg_pred_value          0.648
- 7 precision               0.835
- 8 recall                  0.802
- 9 f1                      0.818
-10 prevalence              0.656
-11 detection_rate          0.526
-12 detection_prevalence    0.630
-13 balanced_accuracy       0.749
+# A tibble: 13 x 3
+   Measure              Train_Metrics Test_Metrics
+   <chr>                        <dbl>        <dbl>
+ 1 accuracy                     0.780        0.766
+ 2 kappa                        0.467        0.490
+ 3 sensitivity                  0.783        0.802
+ 4 specificity                  0.769        0.697
+ 5 pos_pred_value               0.921        0.835
+ 6 neg_pred_value               0.508        0.648
+ 7 precision                    0.921        0.835
+ 8 recall                       0.783        0.802
+ 9 f1                           0.846        0.818
+10 prevalence                   0.774        0.656
+11 detection_rate               0.606        0.526
+12 detection_prevalence         0.658        0.630
+13 balanced_accuracy            0.776        0.749
 ```
 
 # LICENSE

@@ -99,14 +99,25 @@ kappaRule_metrics <- function(test_data,
                               model,
                               measure = NULL){
 
-  results <- broom::tidy(caret::confusionMatrix(table(test$diabetes,
-                                           predict.ruleFit(test, model))))%>%
+  results_test <- broom::tidy(caret::confusionMatrix(table(test_data[,model$y],
+                                           predict.ruleFit(test_data, model))))%>%
     dplyr::select(term, estimate) %>%
+    dplyr::rename(Test_Metrics = estimate) %>%
+    dplyr::rename(Measure = term) %>%
+    dplyr::filter(!Measure %in% "mcnemar")
+
+  results_train <- broom::tidy(caret::confusionMatrix(table(model$RuleData[,model$y],
+                                                            predict(model$RuleFit,
+                                                                    Matrix::as.matrix(model$RuleData %>%
+                                                                                                      dplyr::select(!!-model$y)),
+                                                                    type = "class"))))%>%
+    dplyr::select(term, estimate) %>%
+    dplyr::rename(Train_Metrics = estimate) %>%
     dplyr::rename(Measure = term) %>%
     dplyr::filter(!Measure %in% "mcnemar")
 
 
-  return(results)
+  return(cbind(results_train, results_test[,"Test_Metrics"]))
 
 }
 
