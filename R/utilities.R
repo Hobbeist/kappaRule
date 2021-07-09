@@ -117,7 +117,7 @@ kappaRule_metrics <- function(test_data,
     dplyr::filter(!Measure %in% "mcnemar")
 
 
-  return(cbind(results_train, results_test[,"Test_Metrics"]))
+  return(as_tibble(cbind(results_train, results_test[,"Test_Metrics"])))
 
 }
 
