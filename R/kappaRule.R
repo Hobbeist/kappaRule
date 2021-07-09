@@ -3,8 +3,8 @@
 #' This is rulefit in general. When not using the VARPP framework, this function allows to perform rulefit on any data set with a
 #' binary outcome.
 #'
-#' @param data
-#' @param y
+#' @param data training data
+#' @param y outcome variable name/ target variable
 #' @param ntree number of trees to be built, defaults to 200
 #' @param max.depth maximum tree depth, defaults to 3
 #' @param rule.filter filter the top n rules based on kappa statistic. If NULL, the rules are filter above a kappa of 0.05

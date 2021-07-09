@@ -16,6 +16,10 @@ kappaRule(
 )
 }
 \arguments{
+\item{data}{training data}
+
+\item{y}{outcome variable name/ target variable}
+
 \item{ntree}{number of trees to be built, defaults to 200}
 
 \item{max.depth}{maximum tree depth, defaults to 3}
