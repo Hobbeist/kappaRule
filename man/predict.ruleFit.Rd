@@ -4,12 +4,12 @@
 \alias{predict.ruleFit}
 \title{Predict function for varppRule}
 \usage{
-\method{predict}{ruleFit}(test_data, model, predict = c("probability", "class"))
+\method{predict}{ruleFit}(model, test_data, predict = c("probability", "class"))
 }
 \arguments{
-\item{test_data}{a test data set}
-
 \item{model}{the stored kappaRule model}
+
+\item{test_data}{a test data set}
 
 \item{predict}{if the prediction should be probability or class}
 }

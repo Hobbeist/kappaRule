@@ -51,11 +51,12 @@ print.ruleFit <- function(x){
 #' @param predict if the prediction should be probability or class
 #'
 #' @import dplyr
+#' @importFrom glmnet predict
 #'
 #' @export
-predict.ruleFit <- function(test_data,
-                           model,
-                           predict=c("probability", "class")){
+predict.ruleFit <- function(model,
+                            test_data,
+                            predict=c("probability", "class")){
 
   rule_desc <- model$rules_to_apply
 
@@ -75,7 +76,7 @@ predict.ruleFit <- function(test_data,
   test_mat <- Matrix::as.matrix(test_2 %>% select(-{{y}}))
 
 
-  predictions <- as.factor(predict(rf_results$RuleFit,
+  predictions <- as.factor(glmnet::predict(rf_results$RuleFit,
                                    test_mat,
                                    s="lambda.min",
                                    type="class"))
@@ -94,7 +95,8 @@ predict.ruleFit <- function(test_data,
 
 #' @importFrom broom tidy
 #' @importFrom caret confusionMatrix
-
+#'
+#' @export
 kappaRule_metrics <- function(test_data,
                               model,
                               measure = NULL){

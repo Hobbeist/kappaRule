@@ -1,4 +1,4 @@
-Package: ruleFit
+Package: kappaRule
 Type: Package
 Title: Implementation of the ruleFit algorithm by Friedman and Popescue
 Version: 0.1.0
